@@ -39,9 +39,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 jevois_setup_modules(src/Modules "")
 
 ## Include Pangolin and SceneLib2 files
-include_directories("eigen")
-include_directories("Pangolin/include")
-include_directories("SceneLib2/scenelib2")
+##include_directories("eigen")
+##include_directories("Pangolin/include/pangolin")
+##include_directories("SceneLib2/scenelib2")
 
 ## Include Pangolin source files
 ## set(PAN "${CMAKE_CURRENT_SOURCE_DIR}/Pangolin/src")
