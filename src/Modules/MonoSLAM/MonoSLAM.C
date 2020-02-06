@@ -18,10 +18,6 @@
 #include <jevois/Core/Module.H>
 #include <jevois/Image/RawImageOps.H>
 
-#include <SceneLib2/scenelib2/monoslam.h>
-#include <Pangolin/include/pangolin/pangolin.h>
-#include <SceneLib2/scenelib2/support/pangolin_util.h>
-
 // icon by Catalin Fertu in cinema at flaticon
 
 /*! 
