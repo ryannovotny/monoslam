@@ -39,17 +39,74 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 jevois_setup_modules(src/Modules "")
 
 ## Include Eigen
-add_subdirectory(Eigen)
+set(EIG ${CMAKE_CURRENT_SOURCE_DIR}/Eigen/Eigen)
+include_directories(${EIG}/src)
+target_sources(MonoSLAM PRIVATE 
+	${EIG}/LU
+	${EIG}/SuperLUSupport
+	${EIG}/Eigenvalues
+	${EIG}/IterativeLinearSolvers
+	${EIG}/SPQRSupport
+	${EIG}/Cholesky
+	${EIG}/Dense
+	${EIG}/SparseLU
+	${EIG}/SparseQR
+	${EIG}/PardisoSupport
+	${EIG}/StdList
+	${EIG}/MetisSupport
+	${EIG}/QR
+	${EIG}/StdDeque
+	${EIG}/Geometry
+	${EIG}/Core
+	${EIG}/SparseCore
+	${EIG}/Householder
+	${EIG}/CholmodSupport
+	${EIG}/Eigen
+	${EIG}/StdVector
+	${EIG}/QtAlignedMalloc
+	${EIG}/PaStiXSupport
+	${EIG}/Sparse
+	${EIG}/OrderingMethods
+	${EIG}/Jacobi
+	${EIG}/SVD
+	${EIG}/UmfPackSupport
+	${EIG}/SparseCholesky
+)
 
 ## Include Pangolin
-set(EXPORT_Pangolin OFF CACHE BOOL "")
-set(BUILD_EXAMPLES OFF CACHE BOOL "")
-set(BUILD_TESTS OFF CACHE BOOL "")
-set(BUILD_PYPANGOLIN_MODULE OFF CACHE BOOL "")
-add_subdirectory(Pangolin)
+#set(EXPORT_Pangolin OFF CACHE BOOL "")
+#set(BUILD_EXAMPLES OFF CACHE BOOL "")
+#set(BUILD_TESTS OFF CACHE BOOL "")
+#set(BUILD_PYPANGOLIN_MODULE OFF CACHE BOOL "")
+#add_subdirectory(Pangolin)
 
 ## Include SceneLib2
-add_subdirectory(SceneLib2)
+set(SCE ${CMAKE_CURRENT_SOURCE_DIR}/SceneLib2/scenelib2)
+include_directories(SceneLib2/scenelib2
+	SceneLib2/scenelib2/framegrabber
+	SceneLib2/scenelib2/graphic
+	SceneLib2/scenelib2/improc
+	SceneLib2/scenelib2/support)
+target_sources(MonoSLAM PRIVATE
+	${SCE}/motion_model.cpp
+	${SCE}/camera.cpp
+	${SCE}/graphic/graphictool.cpp
+	${SCE}/support/eigen_util.cpp
+	${SCE}/support/pangolin_util.cpp
+	${SCE}/support/math_util.cpp
+	${SCE}/improc/improc.cpp
+	${SCE}/improc/search_multiple_overlapping_ellipses.cpp
+	${SCE}/feature.cpp
+	${SCE}/kalman.cpp
+	${SCE}/full_feature_model.cpp
+	${SCE}/feature_init_info.cpp
+	${SCE}/feature_model.cpp
+	${SCE}/framegrabber/filegrabber.cpp
+	${SCE}/framegrabber/framegrabber.cpp
+	${SCE}/framegrabber/usbcamgrabber.cpp
+	${SCE}/monoslam.cpp
+	${SCE}/part_feature_model.cpp
+)
 
 ## Include Pangolin source files
 ## set(PAN "${CMAKE_CURRENT_SOURCE_DIR}/Pangolin/src")
