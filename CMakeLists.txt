@@ -70,8 +70,7 @@ target_sources(MonoSLAM PRIVATE
 	${EIG}/Jacobi
 	${EIG}/SVD
 	${EIG}/UmfPackSupport
-	${EIG}/SparseCholesky
-)
+	${EIG}/SparseCholesky )
 
 ## Include Pangolin
 #set(EXPORT_Pangolin OFF CACHE BOOL "")
