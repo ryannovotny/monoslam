@@ -47,15 +47,12 @@ else (JEVOIS_PLATFORM)
 endif (JEVOIS_PLATFORM)
 
 ## Include Pangolin
-set(PAN "${CMAKE_CURRENT_SOURCE_DIR}/Pangolin/src")
-set(EXPORT_Pangolin OFF CACHE BOOL "")
-set(BUILD_EXAMPLES OFF CACHE BOOL "")
-set(BUILD_TESTS OFF CACHE BOOL "")
-set(BUILD_PYPANGOLIN_MODULE OFF CACHE BOOL "")
-set(BUILD_PANGOLIN_GUI OFF CACHE BOOL "")
+set(BUILD_EXAMPLES OFF CACHE BOOL "Build Tools" FORCE)
+set(BUILD_TESTS OFF CACHE BOOL "Build Tests" FORCE)
+set(BUILD_PYPANGOLIN_MODULE OFF CACHE BOOL "" FORCE)
+set(BUILD_PANGOLIN_GUI OFF CACHE BOOL "Build support for Pangolin GUI" FORCE)
 
-include_directories(Pangolin/include)
-target_sources(MonoSLAM PRIVATE ${PAN}/plot/plotter.cpp ${PAN}/plot/datalog.cpp ${PAN}/geometry/geometry_ply.cpp ${PAN}/geometry/glgeometry.cpp ${PAN}/geometry/tinyobj.cpp ${PAN}/geometry/geometry_obj.cpp ${PAN}/geometry/geometry.cpp ${PAN}/display/view.cpp ${PAN}/display/display.cpp ${PAN}/display/window_factory.cpp ${PAN}/display/image_view.cpp ${PAN}/display/device/display_headless.cpp ${PAN}/display/device/display_android.cpp ${PAN}/display/device/display_wayland.cpp ${PAN}/display/device/display_win.cpp ${PAN}/display/device/display_x11.cpp ${PAN}/display/opengl_render_state.cpp ${PAN}/display/viewport.cpp ${PAN}/display/widgets/widgets.cpp ${PAN}/utils/posix/shared_memory_buffer.cpp ${PAN}/utils/posix/semaphore.cpp ${PAN}/utils/posix/condition_variable.cpp ${PAN}/utils/threadedfilebuf.cpp ${PAN}/utils/file_utils.cpp ${PAN}/utils/uri.cpp ${PAN}/utils/sigstate.cpp ${PAN}/utils/timer.cpp ${PAN}/utils/file_extension.cpp ${PAN}/console/ConsoleView.cpp ${PAN}/image/image_io_exr.cpp ${PAN}/image/image_io_tga.cpp ${PAN}/image/image_io_packed12bit.cpp ${PAN}/image/image_io_raw.cpp ${PAN}/image/image_io.cpp ${PAN}/image/image_io_png.cpp ${PAN}/image/image_io_jpg.cpp ${PAN}/image/image_io_zstd.cpp ${PAN}/image/image_io_pango.cpp ${PAN}/image/pixel_format.cpp ${PAN}/image/image_io_ppm.cpp ${PAN}/image/image_io_lz4.cpp ${PAN}/handler/handler_image.cpp ${PAN}/handler/handler.cpp ${PAN}/handler/handler_glbuffer.cpp ${PAN}/log/packetstream_reader.cpp ${PAN}/log/packetstream.cpp ${PAN}/log/packet.cpp ${PAN}/log/packetstream_writer.cpp ${PAN}/log/playback_session.cpp ${PAN}/gl/glfont.cpp ${PAN}/gl/glchar.cpp ${PAN}/gl/gltext.cpp ${PAN}/gl/gltexturecache.cpp ${PAN}/gl/compat/gl2engine.cpp ${PAN}/gl/glpangoglu.cpp ${PAN}/gl/gldraw.cpp ${PAN}/tools/video_viewer.cpp ${PAN}/var/input_record_repeat.cpp ${PAN}/var/vars.cpp ${PAN}/video/video_output_interface_factory.cpp ${PAN}/video/video_input.cpp ${PAN}/video/stream_encoder_factory.cpp ${PAN}/video/video_output.cpp ${PAN}/video/video_interface_factory.cpp ${PAN}/video/drivers/v4l.cpp ${PAN}/video/drivers/thread.cpp ${PAN}/video/drivers/realsense2.cpp ${PAN}/video/drivers/deinterlace.cpp ${PAN}/video/drivers/images_out.cpp ${PAN}/video/drivers/firewire.cpp ${PAN}/video/drivers/shared_memory.cpp ${PAN}/video/drivers/unpack.cpp ${PAN}/video/drivers/mirror.cpp ${PAN}/video/drivers/test.cpp ${PAN}/video/drivers/pleora.cpp ${PAN}/video/drivers/uvc.cpp ${PAN}/video/drivers/join.cpp ${PAN}/video/drivers/pvn.cpp ${PAN}/video/drivers/debayer.cpp ${PAN}/video/drivers/images.cpp ${PAN}/video/drivers/openni2.cpp ${PAN}/video/drivers/merge.cpp ${PAN}/video/drivers/truncate.cpp ${PAN}/video/drivers/depthsense.cpp ${PAN}/video/drivers/uvc_mediafoundation.cpp ${PAN}/video/drivers/realsense.cpp ${PAN}/video/drivers/openni.cpp ${PAN}/video/drivers/pango_video_output.cpp ${PAN}/video/drivers/pack.cpp ${PAN}/video/drivers/split.cpp ${PAN}/video/drivers/json.cpp ${PAN}/video/drivers/teli.cpp ${PAN}/video/drivers/pango.cpp ${PAN}/video/drivers/shift.cpp ${PAN}/video/drivers/ffmpeg.cpp ${PAN}/video/video.cpp)
+add_subdirectory("Pangolin")
 
 ## Include SceneLib2
 set(SCE ${CMAKE_CURRENT_SOURCE_DIR}/SceneLib2/scenelib2)

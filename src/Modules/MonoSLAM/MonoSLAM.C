@@ -18,6 +18,10 @@
 #include <jevois/Core/Module.H>
 #include <jevois/Image/RawImageOps.H>
 
+#include <Pangolin/include/pangolin/pangolin.h>
+#include <SceneLib2/scenelib2/monoslam.h>
+#include <SceneLib2/scenelib2/support/pangolin_util.h>
+
 // icon by Catalin Fertu in cinema at flaticon
 
 /*! 
@@ -43,6 +47,18 @@ class MonoSLAM : public jevois::Module
     //! Virtual destructor for safe inheritance
     virtual ~MonoSLAM() { }
 
+    // Create Monoslam
+    SceneLib2::MonoSLAM *g_monoslam;
+    bool  g_next = false;
+    bool  g_play = false;
+    int   g_frame_id  = 0;
+
+    SceneLib2::Frame  frame;
+
+    // Create & initialise a Scene object
+    g_monoslam = new SceneLib2::MonoSLAM();
+    g_monoslam->Init("SceneLib2.cfg");
+  
     //! Processing function
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
     {
