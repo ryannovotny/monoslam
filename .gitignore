@@ -6,3 +6,4 @@ pbuild/
 build/
 jvpkg/
 JeVois_monoslam.jvpkg
+.vscode/

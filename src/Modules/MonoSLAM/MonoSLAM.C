@@ -40,7 +40,16 @@
 
 class MonoSLAM : public jevois::Module
 {
+  private:
+    SceneLib2::MonoSLAM *g_monoslam;
+    SceneLib2::Frame itsFrame;
+
   public:
+    //! Constructor for SceneLib2
+    MonoSLAM(std::string const & instance) : jevois::Module(instance)
+    {
+      g_monoslam = new SceneLib2::MonoSLAM();
+    }
     //! Default base class constructor ok
     using jevois::Module::Module;
 
@@ -48,16 +57,13 @@ class MonoSLAM : public jevois::Module
     virtual ~MonoSLAM() { }
 
     // Create Monoslam
-    SceneLib2::MonoSLAM *g_monoslam;
+    
     bool  g_next = false;
     bool  g_play = false;
     int   g_frame_id  = 0;
 
-    SceneLib2::Frame  frame;
-
     // Create & initialise a Scene object
-    g_monoslam = new SceneLib2::MonoSLAM();
-    g_monoslam->Init("SceneLib2.cfg");
+    // g_monoslam->Init("SceneLib2.cfg");
   
     //! Processing function
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
