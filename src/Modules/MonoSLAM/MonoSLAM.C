@@ -44,7 +44,7 @@ class MonoSLAM : public jevois::Module
     SceneLib2::MonoSLAM *g_monoslam;
     SceneLib2::Frame itsFrame;
 
-    pangolin::OpenGlRenderState view_state_3d();
+    // pangolin::OpenGlRenderState view_state_3d();
 
   public:
     //! Constructor for SceneLib2
@@ -54,14 +54,14 @@ class MonoSLAM : public jevois::Module
       g_monoslam->Init("SceneLib2.cfg");
 
       // Define Camera Render Object (for view / scene browsing)
-      pangolin::OpenGlRenderState view_state_3d(pangolin::ProjectionMatrix(g_monoslam->camera_->width_,
-                                                                          g_monoslam->camera_->height_,
-                                                                          g_monoslam->camera_->fku_,
-                                                                          g_monoslam->camera_->fkv_,
-                                                                          g_monoslam->camera_->centre_(0),
-                                                                          g_monoslam->camera_->centre_(1),
-                                                                          0.00001, 1000),
-                                                pangolin::ModelViewLookAt(-0.0, 0.18, -1.4, 0.0, 0.13, 0.0, pangolin::AxisY));
+      // pangolin::OpenGlRenderState view_state_3d(pangolin::ProjectionMatrix(g_monoslam->camera_->width_,
+      //                                                                   g_monoslam->camera_->height_,
+      //                                                                    g_monoslam->camera_->fku_,
+      //                                                                    g_monoslam->camera_->fkv_,
+      //                                                                    g_monoslam->camera_->centre_(0),
+      //                                                                    g_monoslam->camera_->centre_(1),
+      //                                                                    0.00001, 1000),
+      //                                          pangolin::ModelViewLookAt(-0.0, 0.18, -1.4, 0.0, 0.13, 0.0, pangolin::AxisY));
   
     }
     //! Default base class constructor ok
@@ -87,7 +87,7 @@ class MonoSLAM : public jevois::Module
       // Convert to OpenCV image
       cv::Mat cvimg = jevois::rawimage::convertToCvRGB(inimg);
 
-      // Try some crazy shit lmao leggo
+      // Begin SceneLib2 processing
       g_monoslam->GoOneStep(cvimg, false, false);
       
       // Wait for an image from our gadget driver into which we will put our results:
@@ -99,7 +99,8 @@ class MonoSLAM : public jevois::Module
       g_monoslam->graphic_tool_->DrawAR(cvimg, false, false, false,
                                         false, false, false, false);
       
-      // jevois::rawimage::convertCvRGBtoRawImage(cvimg, inimg);
+      jevois::RawImage rawimg;
+      jevois::rawimage::convertCvRGBtoRawImage(cvimg, rawimg, 50);
 
       jevois::rawimage::paste(inimg, outimg, 0, 0);
       
