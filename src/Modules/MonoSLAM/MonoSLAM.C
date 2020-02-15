@@ -19,8 +19,8 @@
 #include <jevois/Image/RawImageOps.H>
 
 #include <Pangolin/include/pangolin/pangolin.h>
-#include <SceneLib2/scenelib2/monoslam.h>
-#include <SceneLib2/scenelib2/support/pangolin_util.h>
+#include <SceneLib2/include/scenelib2/monoslam.h>
+#include <SceneLib2/include/scenelib2/support/pangolin_util.h>
 
 // icon by Catalin Fertu in cinema at flaticon
 
@@ -42,7 +42,7 @@ class MonoSLAM : public jevois::Module
 {
   private:
     SceneLib2::MonoSLAM *g_monoslam;
-    SceneLib2::Frame itsFrame;
+    // SceneLib2::Frame itsFrame;
 
     // pangolin::OpenGlRenderState view_state_3d();
 

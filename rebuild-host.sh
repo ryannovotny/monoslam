@@ -4,7 +4,6 @@
 ncpu=`cat /proc/cpuinfo |grep processor|wc -l`
 if [ `cat /proc/cpuinfo | grep ARM | wc -l` -gt 0 ]; then ncpu=1; fi
 if [ ! -d Pangolin ]; then ./download_pangolin.sh; fi
-if [ ! -d SceneLib2 ]; then ./download_scenelib.sh; fi
 
 /bin/rm -rf hbuild \
     && mkdir hbuild \

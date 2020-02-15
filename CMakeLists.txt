@@ -60,11 +60,7 @@ add_subdirectory("Pangolin")
 
 ## Include SceneLib2
 set(SCE ${CMAKE_CURRENT_SOURCE_DIR}/SceneLib2/scenelib2)
-include_directories(SceneLib2/scenelib2
-	SceneLib2/scenelib2/framegrabber
-	SceneLib2/scenelib2/graphic
-	SceneLib2/scenelib2/improc
-	SceneLib2/scenelib2/support)
+include_directories(SceneLib2/include/scenelib2)
 target_sources(MonoSLAM PRIVATE
 	${SCE}/motion_model.cpp
 	${SCE}/camera.cpp
@@ -79,9 +75,6 @@ target_sources(MonoSLAM PRIVATE
 	${SCE}/full_feature_model.cpp
 	${SCE}/feature_init_info.cpp
 	${SCE}/feature_model.cpp
-	${SCE}/framegrabber/filegrabber.cpp
-	${SCE}/framegrabber/framegrabber.cpp
-	${SCE}/framegrabber/usbcamgrabber.cpp
 	${SCE}/monoslam.cpp
 	${SCE}/part_feature_model.cpp
 )

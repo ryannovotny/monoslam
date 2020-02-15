@@ -16,7 +16,6 @@ if [ "X$1" = "X--live" ]; then extra="-DJEVOIS_MODULES_TO_LIVE=ON"; shift; fi
 ncpu=`cat /proc/cpuinfo |grep processor|wc -l`
 if [ `cat /proc/cpuinfo | grep ARM | wc -l` -gt 0 ]; then ncpu=1; fi
 if [ ! -d Pangolin ]; then ./download_pangolin.sh; fi
-if [ ! -d SceneLib2 ]; then ./download_scenelib.sh; fi
 
 sudo /bin/rm -rf pbuild \
     && mkdir pbuild \
