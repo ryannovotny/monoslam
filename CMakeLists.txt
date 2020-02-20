@@ -48,17 +48,19 @@ endif (JEVOIS_PLATFORM)
 
 ## Include Pangolin
 set(PAN ${CMAKE_CURRENT_SOURCE_DIR}/Pangolin)
+
 set(BUILD_EXAMPLES OFF CACHE BOOL "Build Tools" FORCE)
 set(BUILD_TESTS OFF CACHE BOOL "Build Tests" FORCE)
 set(BUILD_PANGOLIN_PYTHON OFF CACHE BOOL "" FORCE)
-## Toggling GUI will allow compilation
-set(BUILD_PANGOLIN_GUI OFF CACHE BOOL "" FORCE)
+# Toggling GUI will allow compilation
+# set(BUILD_PANGOLIN_GUI OFF CACHE BOOL "" FORCE)
 set(BUILD_PANGOLIN_VIDEO OFF CACHE BOOL "" FORCE)
+
+find_package(OpenGL REQUIRED)
 
 include_directories(${PAN}/include)
 include_directories(${PAN}/build/src/include)
 
-include_directories(/usr/include)
 add_subdirectory("Pangolin")
 
 ## Include SceneLib2

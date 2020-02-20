@@ -105,7 +105,7 @@ class MonoSLAM : public jevois::Module
       jevois::rawimage::convertCvRGBtoRawImage(cvimg, rawimg, 50);
 
       // Just copy over the image
-      jevois::rawimage::paste(inimg, rawimg, 0, 0);
+      jevois::rawimage::paste(rawimg, outimg, 0, 0);
       
       // Print a text message:
       // jevois::rawimage::writeText(outimg, "Hello JeVois!", 100, 230, jevois::yuyv::White, jevois::rawimage::Font20x38);
