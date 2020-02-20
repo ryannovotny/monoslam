@@ -7,8 +7,8 @@ if [ -d Pangolin ]; then
 fi
 
 git clone https://github.com/stevenlovegrove/Pangolin.git
-#cd Pangolin
-#mkdir build
-#cd build
-#cmake ..
-#make -j4
+cd Pangolin
+mkdir build
+cd build
+cmake -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_PANGOLIN_PYTHON=OFF ..
+cmake --build .

@@ -96,13 +96,16 @@ class MonoSLAM : public jevois::Module
       // Enforce that the input and output formats and image sizes match:
       outimg.require("output", inimg.width, inimg.height, inimg.fmt);
 
+      // Send cvimg for object drawing
       g_monoslam->graphic_tool_->DrawAR(cvimg, false, false, false,
                                         false, false, false, false);
       
+      // Convert cvimg back to const
       jevois::RawImage rawimg;
       jevois::rawimage::convertCvRGBtoRawImage(cvimg, rawimg, 50);
 
-      jevois::rawimage::paste(inimg, outimg, 0, 0);
+      // Just copy over the image
+      jevois::rawimage::paste(inimg, rawimg, 0, 0);
       
       // Print a text message:
       // jevois::rawimage::writeText(outimg, "Hello JeVois!", 100, 230, jevois::yuyv::White, jevois::rawimage::Font20x38);
