@@ -7,7 +7,8 @@ if [ -d Pangolin ]; then
 fi
 
 git clone https://github.com/stevenlovegrove/Pangolin.git
-wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
-tar jxvf eigen-3.3.7.tar.bz2
-/bin/rm eigen-3.3.7.tar.bz2
-mv eigen-3.3.7 Eigen
+cd Pangolin
+mkdir build
+cd build
+cmake -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_PANGOLIN_PYTHON=OFF ..
+cmake --build .

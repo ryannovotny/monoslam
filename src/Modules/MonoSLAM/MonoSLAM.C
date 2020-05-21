@@ -18,6 +18,10 @@
 #include <jevois/Core/Module.H>
 #include <jevois/Image/RawImageOps.H>
 
+#include <Pangolin/include/pangolin/pangolin.h>
+#include <SceneLib2/include/scenelib2/monoslam.h>
+#include <SceneLib2/include/scenelib2/support/pangolin_util.h>
+
 // icon by Catalin Fertu in cinema at flaticon
 
 /*! 
@@ -36,13 +40,41 @@
 
 class MonoSLAM : public jevois::Module
 {
+  private:
+    SceneLib2::MonoSLAM *g_monoslam;
+    // SceneLib2::Frame itsFrame;
+
+    // pangolin::OpenGlRenderState view_state_3d();
+
   public:
+    //! Constructor for SceneLib2
+    MonoSLAM(std::string const & instance) : jevois::Module(instance)
+    {
+      g_monoslam = new SceneLib2::MonoSLAM();
+      g_monoslam->Init("SceneLib2.cfg");
+
+      // Define Camera Render Object (for view / scene browsing)
+      // pangolin::OpenGlRenderState view_state_3d(pangolin::ProjectionMatrix(g_monoslam->camera_->width_,
+      //                                                                   g_monoslam->camera_->height_,
+      //                                                                    g_monoslam->camera_->fku_,
+      //                                                                    g_monoslam->camera_->fkv_,
+      //                                                                    g_monoslam->camera_->centre_(0),
+      //                                                                    g_monoslam->camera_->centre_(1),
+      //                                                                    0.00001, 1000),
+      //                                          pangolin::ModelViewLookAt(-0.0, 0.18, -1.4, 0.0, 0.13, 0.0, pangolin::AxisY));
+  
+    }
     //! Default base class constructor ok
     using jevois::Module::Module;
 
     //! Virtual destructor for safe inheritance
     virtual ~MonoSLAM() { }
 
+    // Create variables for SceneLib2
+    bool  g_next = false;
+    bool  g_play = false;
+    int   g_frame_id  = 0;
+    
     //! Processing function
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
     {
@@ -51,16 +83,30 @@ class MonoSLAM : public jevois::Module
 
       // We only support YUYV pixels in this example, any resolution:
       inimg.require("input", inimg.width, inimg.height, V4L2_PIX_FMT_YUYV);
+
+      // Convert to OpenCV image
+      cv::Mat cvimg = jevois::rawimage::convertToCvRGB(inimg);
+
+      // Begin SceneLib2 processing
+      g_monoslam->GoOneStep(cvimg, false, false);
       
       // Wait for an image from our gadget driver into which we will put our results:
       jevois::RawImage outimg = outframe.get();
 
       // Enforce that the input and output formats and image sizes match:
       outimg.require("output", inimg.width, inimg.height, inimg.fmt);
-      
-      // Just copy the pixel data over:
-      memcpy(outimg.pixelsw<void>(), inimg.pixels<void>(), std::min(inimg.buf->length(), outimg.buf->length()));
 
+      // Send cvimg for object drawing
+      g_monoslam->graphic_tool_->DrawAR(cvimg, false, false, false,
+                                        false, false, false, false);
+      
+      // Convert cvimg back to const
+      jevois::RawImage rawimg;
+      jevois::rawimage::convertCvRGBtoRawImage(cvimg, rawimg, 50);
+
+      // Just copy over the image
+      jevois::rawimage::paste(rawimg, outimg, 0, 0);
+      
       // Print a text message:
       // jevois::rawimage::writeText(outimg, "Hello JeVois!", 100, 230, jevois::yuyv::White, jevois::rawimage::Font20x38);
       
